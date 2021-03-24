@@ -1,0 +1,5 @@
+example.txt
+example.py
+__pycache__
+.vscode
+dist/
