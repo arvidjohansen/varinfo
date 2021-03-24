@@ -4,9 +4,9 @@ designed to make your life easier when
 exploring new packages, modules, classes and objects.
 """
 
-from .functions import varinfo, udir, grep
-from .displayhook import pprint
+from .functions import varinfo, udir
+from .displayhook import p
 
-__all__ = ['udir','varinfo','pprint','grep']
+__all__ = ['udir','varinfo','p']
 
 

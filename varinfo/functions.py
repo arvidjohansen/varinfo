@@ -1,24 +1,24 @@
 import types
 
 
-def udir(o, search = ''):
+def udir(o, find = ''):
     """
     Uber dir
-    Returns a list of VISIBLE attributes found on the object.
+    Returns a list of attributes found on the object.
     Excludes built-in attributes (everything starting with __)
     Excludes private attributes (everything starting with _)
     """
     attributes = dir(o)
 
-    if search:
-        attributes = grep(attributes,search)
+    if find:
+        attributes = grep(attributes,find)
     
     attributes = [i for i in attributes if not i.startswith('_')]
     
     return attributes
 
 def varinfo(o, 
-    search = '',
+    find = '',
     max_str_len=200,
     
     ):
@@ -34,9 +34,9 @@ def varinfo(o,
     """
     ret = [] 
     
-    attributes = udir(o, search=search)
+    attributes = udir(o, find=find)
 
-    print(f'varinfo max_str: {max_str_len} search: {search}')
+    #print(f'varinfo max_str: {max_str_len} search: {find}')
 
     for name in attributes:
         val = getattr(o,name)
