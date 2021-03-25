@@ -5,8 +5,8 @@ exploring new packages, modules, classes and objects.
 """
 
 from .functions import varinfo, udir
-from .displayhook import p
+from .displayhook import print
 
-__all__ = ['udir','varinfo','p']
+__all__ = ['udir','varinfo','print']
 
 

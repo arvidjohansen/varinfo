@@ -1,30 +1,45 @@
 import types
 
 
-def udir(o, find = ''):
+def udir(o, 
+    find = '',
+    show_privates = False,
+    show_builtins = False, ):
     """
     Uber dir
     Returns a list of attributes found on the object.
     Excludes built-in attributes (everything starting with __)
     Excludes private attributes (everything starting with _)
+    To include private attributes, set show_privates=True
+    To include builtin attributes, set show_builtins=True
     """
     attributes = dir(o)
 
+    if not show_privates and not show_builtins:
+        attributes = [a for a in attributes if not a.startswith('_')]
+    elif show_privates and not show_builtins:
+        attributes = [a for a in attributes if not a.startswith('__')]
+    elif show_builtins and not show_privates:
+        attributes = [a for a in attributes if not a[0] == '_' or a.startswith('__')]
+
     if find:
         attributes = grep(attributes,find)
-    
-    attributes = [i for i in attributes if not i.startswith('_')]
     
     return attributes
 
 def varinfo(o, 
     find = '',
     max_str_len=200,
+    show_privates = False,
+    show_builtins = False,
     
     ):
     """
     Variable info
     Returns a human-readable list of properties of the object
+    To include private attributes, set show_privates=True
+    To include builtin attributes, set show_builtins=True
+
     Will return the actual value of the following types:
     *str (capped at 200 per default)
     *int
@@ -34,9 +49,11 @@ def varinfo(o,
     """
     ret = [] 
     
-    attributes = udir(o, find=find)
-
-    #print(f'varinfo max_str: {max_str_len} search: {find}')
+    attributes = udir(o,
+    find=find,
+    show_privates=show_privates,
+    show_builtins=show_builtins,
+    )
 
     for name in attributes:
         val = getattr(o,name)
@@ -96,4 +113,3 @@ def _find_type_match(obj):
         
 
         
-
